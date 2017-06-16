@@ -1,10 +1,9 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import { SystemMap } from "./components/SystemMap";
-import { sol } from "./models/sol"
+import { SystemMapContainer } from "./containers/SystemMapContainer";
 
 ReactDOM.render(
-    <SystemMap system={sol} />,
+    <SystemMapContainer />,
     document.getElementById("app")
 );

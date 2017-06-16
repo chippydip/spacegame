@@ -8,12 +8,14 @@ interface SystemObject {
     orbit: Orbit;
     frame: THREE.Object3D;
     body: THREE.Object3D;
-    label: HTMLCanvasElement;
+    label: HTMLCanvasElement | null;
     parent?: SystemObject;
+    system: System;
 }
 
 export interface SystemMapProps {
     system: System;
+    deltaT: number;
 }
 
 export class SystemMap extends React.Component<SystemMapProps, undefined> {
@@ -253,6 +255,7 @@ export class SystemMap extends React.Component<SystemMapProps, undefined> {
             body: this.createBody(system),
             label: this.createLabel(system.name),
             parent,
+            system,
         };
         frame.add(obj.body);
         this.objects.push(obj);
@@ -274,12 +277,16 @@ export class SystemMap extends React.Component<SystemMapProps, undefined> {
         }
     }
 
-    private createLabel = (text: string): HTMLCanvasElement => {
+    private createLabel = (text: string): HTMLCanvasElement | null => {
+        if (text.endsWith(" Barycenter")) {
+            return null;
+        }
+
         const label = document.createElement("canvas");
         label.width = 100;
         label.height = 30;
         const ctx = label.getContext("2d");
-        if (ctx && !text.endsWith(" Barycenter")) {
+        if (ctx) {
             ctx.fillStyle = "#ffffff";
             ctx.textAlign = "center";
             ctx.font = "16px sans-serif";
@@ -360,12 +367,38 @@ export class SystemMap extends React.Component<SystemMapProps, undefined> {
 
         const worldToScreen = Math.min(offsetWidth, offsetHeight) / (2 * this.viewSize);
 
-        //ctx.setTransform(1, 0, 0, 1, 0, 0);
-        ctx.translate(-this.focus.x * worldToScreen + offsetWidth/2, this.focus.y * worldToScreen + offsetHeight/2);
-
+        const focusX = this.focus.x;
+        const focusY = this.focus.y;
+        const offX = offsetWidth/2 - 50;
+        const offY = offsetHeight/2;
         for (const obj of this.objects) {
+            if (!obj.label) {
+                continue;
+            }
+
             const pos = this.getObjectPos(obj);
-            ctx.drawImage(obj.label, pos.x * worldToScreen - 50, -pos.y * worldToScreen);
+            const x = (pos.x - focusX) * worldToScreen + offX;
+            const y = -(pos.y - focusY) * worldToScreen + offY;
+
+            // Check if the label would be too close to the parent
+            // TODO: This should really check for all nearby bodies (by mass?) but this is OK for now
+            let parent = obj.parent;
+            if (parent && !parent.label && parent.system.satellites) {
+                if (obj.system === parent.system.satellites[0]) {
+                    parent = parent.parent;
+                }
+            }
+
+            if (parent) {
+                const pPos = this.getObjectPos(parent);
+                const pX = (pPos.x - focusX) * worldToScreen + offX;
+                const pY = -(pPos.y - focusY) * worldToScreen + offY;
+                const d2 = (pX - x) * (pX - x) + (pY - y) * (pY - y);
+                if (d2 < 400) {
+                    continue;
+                }
+            }
+            ctx.drawImage(obj.label, x, y);
         }
 
         // Draw
@@ -375,7 +408,7 @@ export class SystemMap extends React.Component<SystemMapProps, undefined> {
     private updateOrbits = () => {
         //const minScale = this.viewSize / 1.6;
 
-        this.t += 0.01;
+        this.t += this.props.deltaT;
         for (const obj of this.objects) {
             const obt = obj.orbit;
             const M = -(obt.M0 + this.t * obt.n);
