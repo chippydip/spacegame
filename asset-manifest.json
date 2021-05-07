@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/spacegame/static/css/main.8c8b27cf.chunk.css",
-    "main.js": "/spacegame/static/js/main.4ef8dd00.chunk.js",
-    "main.js.map": "/spacegame/static/js/main.4ef8dd00.chunk.js.map",
-    "runtime-main.js": "/spacegame/static/js/runtime-main.da5c93a7.js",
-    "runtime-main.js.map": "/spacegame/static/js/runtime-main.da5c93a7.js.map",
-    "static/js/2.bab33d0d.chunk.js": "/spacegame/static/js/2.bab33d0d.chunk.js",
-    "static/js/2.bab33d0d.chunk.js.map": "/spacegame/static/js/2.bab33d0d.chunk.js.map",
-    "static/js/3.618f9dad.chunk.js": "/spacegame/static/js/3.618f9dad.chunk.js",
-    "static/js/3.618f9dad.chunk.js.map": "/spacegame/static/js/3.618f9dad.chunk.js.map",
+    "main.css": "/spacegame/static/css/main.9d5b29c0.chunk.css",
+    "main.js": "/spacegame/static/js/main.f4181dc9.chunk.js",
+    "main.js.map": "/spacegame/static/js/main.f4181dc9.chunk.js.map",
+    "runtime-main.js": "/spacegame/static/js/runtime-main.5eeb665d.js",
+    "runtime-main.js.map": "/spacegame/static/js/runtime-main.5eeb665d.js.map",
+    "static/js/2.77d32799.chunk.js": "/spacegame/static/js/2.77d32799.chunk.js",
+    "static/js/2.77d32799.chunk.js.map": "/spacegame/static/js/2.77d32799.chunk.js.map",
+    "static/js/3.5d172bf8.chunk.js": "/spacegame/static/js/3.5d172bf8.chunk.js",
+    "static/js/3.5d172bf8.chunk.js.map": "/spacegame/static/js/3.5d172bf8.chunk.js.map",
     "index.html": "/spacegame/index.html",
     "service-worker.js": "/spacegame/service-worker.js",
     "service-worker.js.map": "/spacegame/service-worker.js.map",
-    "static/css/main.8c8b27cf.chunk.css.map": "/spacegame/static/css/main.8c8b27cf.chunk.css.map",
-    "static/js/2.bab33d0d.chunk.js.LICENSE.txt": "/spacegame/static/js/2.bab33d0d.chunk.js.LICENSE.txt",
+    "static/css/main.9d5b29c0.chunk.css.map": "/spacegame/static/css/main.9d5b29c0.chunk.css.map",
+    "static/js/2.77d32799.chunk.js.LICENSE.txt": "/spacegame/static/js/2.77d32799.chunk.js.LICENSE.txt",
     "static/media/logo.103b5fa1.svg": "/spacegame/static/media/logo.103b5fa1.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.da5c93a7.js",
-    "static/js/2.bab33d0d.chunk.js",
-    "static/css/main.8c8b27cf.chunk.css",
-    "static/js/main.4ef8dd00.chunk.js"
+    "static/js/runtime-main.5eeb665d.js",
+    "static/js/2.77d32799.chunk.js",
+    "static/css/main.9d5b29c0.chunk.css",
+    "static/js/main.f4181dc9.chunk.js"
   ]
 }
