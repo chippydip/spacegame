@@ -1,18 +1,14 @@
-import * as React from "react";
+import React from "react";
 
-export interface SpeedSelectorProps {
-    onSpeedSet: (deltaT: number) => void;
+export interface Props {
+    setSpeed: (speed: number) => void;
 }
 
-export class SpeedSelector extends React.Component<SpeedSelectorProps> {
-    render() {
-        return (
-            <div style={{ position: "absolute", top: 0, right: 0, color: "red" }}>
-                <button onClick={() => this.props.onSpeedSet(0)}>Pause</button>
-                <button onClick={() => this.props.onSpeedSet(0.01)}>Slow</button>
-                <button onClick={() => this.props.onSpeedSet(0.1)}>Normal</button>
-                <button onClick={() => this.props.onSpeedSet(1)}>Fast</button>
-            </div>
-        );
-    }
-}
+export const SpeedSelector = ({ setSpeed }: Props) => (
+    <div style={{ position: "absolute", top: 0, right: 0 }}>
+        <button onClick={() => setSpeed(0)}>Pause</button>
+        <button onClick={() => setSpeed(0.01)}>Slow</button>
+        <button onClick={() => setSpeed(0.1)}>Normal</button>
+        <button onClick={() => setSpeed(1)}>Fast</button>
+    </div>
+);

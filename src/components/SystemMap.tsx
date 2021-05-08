@@ -1,6 +1,6 @@
-import * as React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
-import { System, Orbit, isBody } from "../models/SolarSystem";
+import { isBody, Orbit, System } from "../models/SolarSystem";
 
 interface SystemObject {
     name: string;
@@ -13,37 +13,68 @@ interface SystemObject {
     system: System;
 }
 
-export interface SystemMapProps {
+export interface Props {
     system: System;
     deltaT: number;
 }
 
-export class SystemMap extends React.Component<SystemMapProps> {
-    // componentWillReceiveProps(nextProps: SystemMapProps) {
-    //     // TODO: update stuff
-    // }
+export const SystemMap = (props: Props) => {
+    const wrapper = useRef<HTMLDivElement>(null);
+    const webGL = useRef<HTMLCanvasElement>(null);
+    const overlay = useRef<HTMLCanvasElement>(null);
 
-    shouldComponentUpdate() {
-        return false; // never need to re-render this component
+    const [runner] = useState(() => new SystemMapRunner(props));
+    runner.updateProps(props);
+
+    useEffect(() => {
+        runner.mount(
+            requireRef(wrapper, "wrapper"),
+            requireRef(webGL, "gl canvas"),
+            requireRef(overlay, "overlay canvas"),
+        );
+
+        return () => runner.unmount();
+    }, [runner]);
+
+    return (
+        <div ref={wrapper} style={{ width: "100%", height: "100%" }}>
+            <canvas ref={webGL} />
+            <canvas ref={overlay} style={{ position: "absolute", left: 0, top: 0, width: "100%", height: "100%", pointerEvents: "none" }} />
+        </div>
+    );
+};
+
+const requireRef = <T extends unknown>(ref: React.RefObject<T>, name?: string) => {
+    const { current } = ref;
+    if (!current) {
+        throw new Error(`Expected RefObject ${name} not found`);
+    }
+    return current;
+};
+
+class SystemMapRunner {
+    private props: Props;
+
+    constructor(props: Props) {
+        this.props = props;
     }
 
-    private wrapper?: HTMLDivElement;
+    public updateProps(props: Props) {
+        this.props = props;
+    }
+
+    private wrapper?: HTMLElement;
     private webGL?: HTMLCanvasElement;
     private overlay?: HTMLCanvasElement;
 
-    render() {
-        return (
-            <div ref={e => this.wrapper = e!} style={{ width: "100%", height: "100%" }}>
-                <canvas ref={e => this.webGL = e!} />
-                <canvas ref={e => this.overlay = e!} style={{ position: "absolute", left: 0, top: 0, width: "100%", height: "100%", pointerEvents: "none" }} />
-            </div>
-        );
-    }
+    public mount(wrapper: HTMLElement, webGL: HTMLCanvasElement, overlay: HTMLCanvasElement) {
+        this.wrapper = wrapper;
+        this.webGL = webGL;
+        this.overlay = overlay;
 
-    componentDidMount() {
-        this.webGL!.addEventListener("contextmenu", this.onContextMenu, false);
-        this.webGL!.addEventListener("mousedown", this.onMouseDown, false);
-        this.webGL!.addEventListener("wheel", this.onMouseWheel, false);
+        this.webGL.addEventListener("contextmenu", this.onContextMenu, false);
+        this.webGL.addEventListener("mousedown", this.onMouseDown, false);
+        this.webGL.addEventListener("wheel", this.onMouseWheel, false);
 
         window.addEventListener("keydown", this.onKeyDown, false);
 
@@ -58,17 +89,19 @@ export class SystemMap extends React.Component<SystemMapProps> {
         this.draw();
     }
 
-    componentWillUnmount() {
+    public unmount() {
         cancelAnimationFrame(this.rafHandle);
 
-        this.webGL!.removeEventListener("contextmenu", this.onContextMenu, false);
-        this.webGL!.removeEventListener("mousedown", this.onMouseDown, false);
-        this.webGL!.removeEventListener("wheel", this.onMouseWheel, false);
+        window.removeEventListener("keydown", this.onKeyDown, false);
 
         document.removeEventListener("mousemove", this.onMouseMove, false);
         document.removeEventListener("mouseup", this.onMouseUp, false);
 
-        window.removeEventListener("keydown", this.onKeyDown, false);
+        if (this.webGL) {
+            this.webGL.removeEventListener("contextmenu", this.onContextMenu, false);
+            this.webGL.removeEventListener("mousedown", this.onMouseDown, false);
+            this.webGL.removeEventListener("wheel", this.onMouseWheel, false);
+        }
     }
 
     private onContextMenu = (event: Event) => {
