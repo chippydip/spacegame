@@ -1,24 +1,24 @@
 {
   "files": {
     "main.css": "/spacegame/static/css/main.3ed0e68e.chunk.css",
-    "main.js": "/spacegame/static/js/main.52a8c9fb.chunk.js",
-    "main.js.map": "/spacegame/static/js/main.52a8c9fb.chunk.js.map",
-    "runtime-main.js": "/spacegame/static/js/runtime-main.aa2f7c80.js",
-    "runtime-main.js.map": "/spacegame/static/js/runtime-main.aa2f7c80.js.map",
-    "static/js/2.63ba66f6.chunk.js": "/spacegame/static/js/2.63ba66f6.chunk.js",
-    "static/js/2.63ba66f6.chunk.js.map": "/spacegame/static/js/2.63ba66f6.chunk.js.map",
-    "static/js/3.2a9066d4.chunk.js": "/spacegame/static/js/3.2a9066d4.chunk.js",
-    "static/js/3.2a9066d4.chunk.js.map": "/spacegame/static/js/3.2a9066d4.chunk.js.map",
+    "main.js": "/spacegame/static/js/main.bc6902d7.chunk.js",
+    "main.js.map": "/spacegame/static/js/main.bc6902d7.chunk.js.map",
+    "runtime-main.js": "/spacegame/static/js/runtime-main.3428facd.js",
+    "runtime-main.js.map": "/spacegame/static/js/runtime-main.3428facd.js.map",
+    "static/js/2.4c80ddf3.chunk.js": "/spacegame/static/js/2.4c80ddf3.chunk.js",
+    "static/js/2.4c80ddf3.chunk.js.map": "/spacegame/static/js/2.4c80ddf3.chunk.js.map",
+    "static/js/3.e1b57f26.chunk.js": "/spacegame/static/js/3.e1b57f26.chunk.js",
+    "static/js/3.e1b57f26.chunk.js.map": "/spacegame/static/js/3.e1b57f26.chunk.js.map",
     "index.html": "/spacegame/index.html",
     "service-worker.js": "/spacegame/service-worker.js",
     "service-worker.js.map": "/spacegame/service-worker.js.map",
     "static/css/main.3ed0e68e.chunk.css.map": "/spacegame/static/css/main.3ed0e68e.chunk.css.map",
-    "static/js/2.63ba66f6.chunk.js.LICENSE.txt": "/spacegame/static/js/2.63ba66f6.chunk.js.LICENSE.txt"
+    "static/js/2.4c80ddf3.chunk.js.LICENSE.txt": "/spacegame/static/js/2.4c80ddf3.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.aa2f7c80.js",
-    "static/js/2.63ba66f6.chunk.js",
+    "static/js/runtime-main.3428facd.js",
+    "static/js/2.4c80ddf3.chunk.js",
     "static/css/main.3ed0e68e.chunk.css",
-    "static/js/main.52a8c9fb.chunk.js"
+    "static/js/main.bc6902d7.chunk.js"
   ]
 }
